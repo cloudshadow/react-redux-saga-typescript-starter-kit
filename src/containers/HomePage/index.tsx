@@ -3,6 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import rootAction from '@/actions';
 import { IRootState } from '@/types/GlobalTypes';
 import { IHomeState } from '@/types/HomeTypes';
+import { HomePageContainer } from './style';
 
 const HomePage: React.FunctionComponent = () => {
   const dispatch = useDispatch();
@@ -14,13 +15,7 @@ const HomePage: React.FunctionComponent = () => {
     <>
       {homeState.isLoading && <>Loading...</>}
       {homeState.hasError && <>error...</>}
-      {homeState.title && (
-        <div className="container-fluid">
-          <div className="row">
-            <div className="col-sm-12">{homeState.title}</div>
-          </div>
-        </div>
-      )}
+      {homeState.title && <HomePageContainer>{homeState.title}</HomePageContainer>}
     </>
   );
 };
