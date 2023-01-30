@@ -4,7 +4,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const TerserPlugin = require('terser-webpack-plugin');
 const path = require('path');
-const HappyPack = require('happypack');
 // const SpeedMeasurePlugin = require('speed-measure-webpack-plugin');
 // const smp = new SpeedMeasurePlugin(); //not support html-webpack-plugin
 // const deps = require('./package.json').dependencies;
@@ -37,13 +36,11 @@ module.exports = {
       filename: '[name].[contenthash].css',
       // chunkFilename: "[id].css"
     }),
-    new HappyPack({
-      loaders: ['babel-loader'],
-    }),
     new HtmlWebpackPlugin({
       // Create HTML file that includes references to bundled CSS and JS.
       filename: '../index.html',
       template: 'src/index.ejs',
+      favicon: 'src/favicon.ico',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
@@ -103,17 +100,22 @@ module.exports = {
     rules: [
       {
         test: /\.(ts|js)x?$/,
-        // loader: 'babel-loader',
-        use: ['happypack/loader'],
+        use: [
+          {
+            loader: 'thread-loader',
+          },
+          {
+            loader: 'babel-loader',
+            options: {
+              presets: ['@babel/preset-env', '@babel/react', '@babel/typescript'],
+            }
+          }
+        ],
         exclude: /node_modules/,
       },
       {
         test: /\.(jpe?g|png|gif|svg)$/i,
         type: 'asset/resource',
-      },
-      {
-        test: /\.ico$/,
-        use: ['file-loader?name=[name].[ext]'],
       },
       {
         test: /(\.css)$/,
