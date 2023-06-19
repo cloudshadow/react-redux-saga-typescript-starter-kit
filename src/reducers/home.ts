@@ -1,4 +1,4 @@
-import produce from 'immer';
+import { produce } from 'immer';
 import { ActionType, getType, createReducer } from 'typesafe-actions';
 import rootAction from '@/actions';
 import { IHomeState } from '@/types/HomeTypes';

@@ -58,7 +58,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       // Create HTML file that includes references to bundled CSS and JS.
       template: 'src/index.ejs',
-      favicon: 'src/favicon.ico',
+      // favicon: 'src/favicon.ico',
       minify: {
         removeComments: true,
         collapseWhitespace: true,
